@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">CSE535_Assignment1</string>
+    <string-array name="category_array">
+        <item>Phone</item>
+        <item>Headphones</item>
+        <item>Keyboard</item>
+        <item>Mouse</item>
+        <item>Bottle</item>
+        <item>Fan</item>
+        <item>Hand</item>
+    </string-array>
+</resources>
