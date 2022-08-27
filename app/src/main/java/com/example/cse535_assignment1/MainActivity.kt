@@ -1,7 +1,5 @@
 package com.example.cse535_assignment1
 
-import android.app.Activity
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
@@ -9,8 +7,11 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.Toast
-import java.util.*
+import android.util.Base64;
+import java.io.ByteArrayOutputStream
+
+
+
 
 private const val REQUEST_CODE = 42
 class MainActivity : AppCompatActivity() {
@@ -32,6 +33,12 @@ class MainActivity : AppCompatActivity() {
 //        }
     }
 
+    fun convert(bitmap: Bitmap): String? {
+        val outputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+        return Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == REQUEST_CODE && resultCode == RESULT_OK){
@@ -40,6 +47,9 @@ class MainActivity : AppCompatActivity() {
             imageView.setImageBitmap(takenImage)
             val btnSelectCategory: Button = findViewById(R.id.btnSelectCategory)
             btnSelectCategory.setEnabled(true);
+            val intent = Intent(this, SelectCategory::class.java)
+            val image_str = convert(takenImage)
+            intent.putExtra("image", image_str);
         }
     }
 

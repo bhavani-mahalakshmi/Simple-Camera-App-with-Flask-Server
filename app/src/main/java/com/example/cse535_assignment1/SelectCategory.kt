@@ -27,7 +27,11 @@ class SelectCategory : AppCompatActivity() {
     fun saveImage(view: android.view.View) {
         val spinner: Spinner = findViewById(R.id.categorySpinner)
         val selectedCategory: String = spinner.getSelectedItem().toString()
-
+        val extras = intent.extras
+        if (extras != null) {
+            val image_str = extras.getString("image")
+        }
+        
     }
 
 }
