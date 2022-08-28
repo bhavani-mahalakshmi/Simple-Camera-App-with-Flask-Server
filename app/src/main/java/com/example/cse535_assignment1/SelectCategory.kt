@@ -6,6 +6,8 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Spinner
 import android.widget.Toast
+import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.fuel.core.extensions.jsonBody
 
 class SelectCategory : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,9 +31,12 @@ class SelectCategory : AppCompatActivity() {
         val selectedCategory: String = spinner.getSelectedItem().toString()
         val extras = intent.extras
         if (extras != null) {
-            val image_str = extras.getString("image")
-            Toast.makeText(this, image_str, Toast.LENGTH_LONG).show()
-            Toast.makeText(this, selectedCategory, Toast.LENGTH_SHORT).show()
+            val imageStr = extras.getString("image")
+            Fuel.post("http://192.168.0.165:8000/save_image")
+                .jsonBody("{ \"category\" : \"$selectedCategory\", \"image\" : \"$imageStr\" }")
+//                .also { println(it) }
+                .response { result -> print(result)}
+
         }
 
     }
