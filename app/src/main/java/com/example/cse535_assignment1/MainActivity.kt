@@ -14,6 +14,8 @@ import java.io.ByteArrayOutputStream
 
 
 private const val REQUEST_CODE = 42
+private var image_str = ""
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         val buttonClick = findViewById<Button>(R.id.btnSelectCategory)
         buttonClick.setOnClickListener {
             val intent = Intent(this, SelectCategory::class.java)
+            intent.putExtra("image", image_str);
             startActivity(intent)
         }
     }
@@ -33,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 //        }
     }
 
-    fun convert(bitmap: Bitmap): String? {
+    fun convert(bitmap: Bitmap): String {
         val outputStream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
         return Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT)
@@ -46,10 +49,8 @@ class MainActivity : AppCompatActivity() {
             val imageView: ImageView = findViewById(R.id.imageView)
             imageView.setImageBitmap(takenImage)
             val btnSelectCategory: Button = findViewById(R.id.btnSelectCategory)
+            image_str = convert(takenImage)
             btnSelectCategory.setEnabled(true);
-            val intent = Intent(this, SelectCategory::class.java)
-            val image_str = convert(takenImage)
-            intent.putExtra("image", image_str);
         }
     }
 

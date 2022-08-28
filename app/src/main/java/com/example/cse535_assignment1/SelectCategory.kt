@@ -30,8 +30,10 @@ class SelectCategory : AppCompatActivity() {
         val extras = intent.extras
         if (extras != null) {
             val image_str = extras.getString("image")
+            Toast.makeText(this, image_str, Toast.LENGTH_LONG).show()
+            Toast.makeText(this, selectedCategory, Toast.LENGTH_SHORT).show()
         }
-        
+
     }
 
 }
